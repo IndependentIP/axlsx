@@ -199,10 +199,10 @@ module Axlsx
         str << '</pageFields>'
       end
       unless data.empty?
-        str << "<dataFields count=\"#{data.size}\">"
+        str << '<dataFields count="' << data.size.to_s << '">'
         data.each do |datum_value|
-          str << "<dataField name='#{datum_value[:subtotal]} of #{datum_value[:ref]}' fld='#{header_index_of(datum_value[:ref])}' baseField='0' baseItem='0'"
-          str << " subtotal='#{datum_value[:subtotal]}' " if datum_value[:subtotal]
+          str << '<dataField name="' << "#{datum_value[:subtotal]} of #{datum_value[:ref]}" << '" fld="' << header_index_of(datum_value[:ref]).to_s << '" baseField="0" baseItem="0"'
+          str << ' subtotal="' << datum_value[:subtotal] << '"' if datum_value[:subtotal]
           str << "/>"
         end
         str << '</dataFields>'
@@ -255,7 +255,7 @@ module Axlsx
         '<pivotField axis="axisCol" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' <<
           '<items count="1"><item t="default"/></items>' <<
         '</pivotField>'
-      elsif data.include? cell_ref
+      elsif data.map { |v| v[:ref] }.include? cell_ref
         '<pivotField dataField="1" compact="0" outline="0" subtotalTop="0" showAll="0" includeNewItemsInFilter="1">' <<
         '</pivotField>'
       else
