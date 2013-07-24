@@ -55,7 +55,7 @@ class TestPivotTable < Test::Unit::TestCase
     end
     assert_equal(['Year', 'Month'], pivot_table.rows)
     assert_equal(['Type'], pivot_table.columns)
-    assert_equal([{:ref=>"Sales"}], pivot_table.data)
+    assert_equal([{:ref=>"Sales", :subtotal => 'sum'}], pivot_table.data)
     assert_equal(['Region'], pivot_table.pages)
   end
 

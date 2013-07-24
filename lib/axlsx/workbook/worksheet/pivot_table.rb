@@ -103,6 +103,8 @@ module Axlsx
         data_field.values.each do |value|
           DataTypeValidator.validate "#{self.class}.data[]", [String], value
         end
+
+        data_field[:subtotal] = 'sum' unless data_field[:subtotal]
         @data << data_field
       end
       @data
@@ -199,7 +201,7 @@ module Axlsx
       unless data.empty?
         str << "<dataFields count=\"#{data.size}\">"
         data.each do |datum_value|
-          str << "<dataField name='#{@subtotal} of #{datum_value[:ref]}' fld='#{header_index_of(datum_value[:ref])}' baseField='0' baseItem='0'"
+          str << "<dataField name='#{datum_value[:subtotal]} of #{datum_value[:ref]}' fld='#{header_index_of(datum_value[:ref])}' baseField='0' baseItem='0'"
           str << " subtotal='#{datum_value[:subtotal]}' " if datum_value[:subtotal]
           str << "/>"
         end
